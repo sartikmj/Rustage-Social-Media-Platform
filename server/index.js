@@ -50,3 +50,11 @@ const storage = multer.diskStorage({ //Handling form data that includes file inp
 const upload = multer({ storage }) //anytime we are going to upload a file we are going to user uplaod.
 //using multer store the uploaded data to into storage  that we defined
 
+/* MONGOOSE SETUP */
+const PORT = process.env.PORT || 6001;
+mongoose.connect(process.env.MONGO_URL)
+.then(()=>{
+    app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
+}).catch((err)=>{
+    console.log(`${err} did not connect`)
+})
