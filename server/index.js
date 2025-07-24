@@ -22,7 +22,7 @@ app.use(express.json())
 
 app.use(helmet()) // Sets secure HTTP headers
 
-app.use(helmet.crossOriginResourcePolicy({ policy: "crross-origin" })) // Allows resources to be shared across origins
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })) // Allows resources to be shared across origins
 
 app.use(morgan("common"))  // Logs basic request details (method, status, URL)
 
