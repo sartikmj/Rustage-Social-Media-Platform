@@ -13,6 +13,8 @@ import { fileURLToPath } from 'url'
 
 import { register } from './controllers/auth.js' //from controller ,logic to upload file
 
+import authRoutes from "./routes/auth.js";
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url) //Converts a file URL (import.meta.url) to a standard file path.
 // -> import.meta.url => Gives you the URL of the current module file (like file:///Users/sartik/app/index.js). Only available in ES Modules.
@@ -61,10 +63,13 @@ const upload = multer({ storage }) //anytime we are going to upload a file we ar
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture") /* middleware to store*/, register /*logic of the endpoint logic to save data in db called controller*/);
+//this is we using to upload file so it has to be in the index.js file
 
+/* ROUTES */
+app.use("./auth", authRoutes)
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 3001;
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
