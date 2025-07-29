@@ -11,8 +11,11 @@ import morgan from 'morgan'
 import path from "path" 
 import { fileURLToPath } from 'url' 
 
+import { register } from './controllers/auth.js' //from controller ,logic to upload file
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url) //Converts a file URL (import.meta.url) to a standard file path.
+// -> import.meta.url => Gives you the URL of the current module file (like file:///Users/sartik/app/index.js). Only available in ES Modules.
 const __dirname =  path.dirname(__filename) //Gets the directory name of the current file.
 
 dotenv.config();
@@ -34,21 +37,31 @@ app.use(cors())
 
 app.use("/assets", express.static(path.join(__dirname, 'public/assets'))) //setting up the directory of where we keep our assets, like in our case it is the images,
 // we are going to store this locally 
-//express.static(...): Serves static files from a directory.
+//express.static(...): Serves(output) static files from a directory and make them accessible at the route .../assets/filename
 // path.join(__dirname, 'public/assets'): Resolves the absolute path to your public/assets folder.
+// eg: for a file -> /public/assets/logo.png ,
+// we can access via http://localhost:3000/assets/logo.png
+
+
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({ //Handling form data that includes file input fields
     destination: function(req, file, cb){ //anytime someone uploads a file onto your website then it's destination is set to that path 
         cb(null, "public/assets"); //This sets the upload folder to public/assets, cb(null, ...) means "no error".
     }, //Every uploaded file will go to the "public/assets" folder.
-    filename: function(req, file, cb){ //This keeps the original file namewhat is 
+    filename: function(req, file, cb){ //This keeps the original name of the uploaded file.
         cb(null, file.originalname); // cb stands for callback
     }
 });
 
-const upload = multer({ storage }) //anytime we are going to upload a file we are going to user uplaod.
-//using multer store the uploaded data to into storage  that we defined
+const upload = multer({ storage }) //anytime we are going to upload a file we are going to use uplaod.
+//using multer we store the uploaded data to into storage that we defined
+
+
+
+/* ROUTES WITH FILES */
+app.post("/auth/register", upload.single("picture") /* middleware to store*/, register /*logic of the endpoint logic to save data in db called controller*/);
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
