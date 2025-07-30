@@ -15,6 +15,8 @@ import { register } from './controllers/auth.js' //from controller ,logic to upl
 
 import authRoutes from "./routes/auth.js";
 
+import userRoutes from "./routes/users.js"
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url) //Converts a file URL (import.meta.url) to a standard file path.
 // -> import.meta.url => Gives you the URL of the current module file (like file:///Users/sartik/app/index.js). Only available in ES Modules.
@@ -66,7 +68,9 @@ app.post("/auth/register", upload.single("picture") /* middleware to store*/, re
 //this is we using to upload file so it has to be in the index.js file
 
 /* ROUTES */
-app.use("./auth", authRoutes)
+app.use("./auth", authRoutes) //to set multiple routes from different file we use app.use() 
+//User Route
+app.use("/users", userRoutes)
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;

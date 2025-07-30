@@ -56,3 +56,18 @@ Example: Useful for debugging and monitoring in development.
 
 Controllers
 -> Controllers are the logics of the endpoints
+
+PUT VS PATCH
+
+-> PUT (Complete Replace)
+Replaces the entire document.
+Any fields not included in the request will be removed or set to default/null, depending on the implementation.
+You must send all fields, even if only one changed.
+If a field is missing, it may get overwritten or removed.
+
+->PATCH (Partial Update)
+Updates only specific fields.
+You send only the fields you want to change.
+Only updates the specified fields.
+Unmentioned fields remain untouched.
+
