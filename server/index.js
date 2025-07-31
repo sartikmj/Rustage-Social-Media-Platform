@@ -17,6 +17,12 @@ import authRoutes from "./routes/auth.js";
 
 import userRoutes from "./routes/users.js"
 
+import postRoutes from './routes/posts.js'
+
+import { verifyToken } from './middleware/auth.js'
+
+import { createPost } from './controllers/posts.js'
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url) //Converts a file URL (import.meta.url) to a standard file path.
 // -> import.meta.url => Gives you the URL of the current module file (like file:///Users/sartik/app/index.js). Only available in ES Modules.
@@ -67,10 +73,15 @@ const upload = multer({ storage }) //anytime we are going to upload a file we ar
 app.post("/auth/register", upload.single("picture") /* middleware to store*/, register /*logic of the endpoint logic to save data in db called controller*/);
 //this is we using to upload file so it has to be in the index.js file
 
+//when user posts it will post a pic
+app.post("/post", verifyToken, upload.single("picture"), createPost);
+
 /* ROUTES */
 app.use("./auth", authRoutes) //to set multiple routes from different file we use app.use() 
 //User Route
 app.use("/users", userRoutes)
+//Post Route
+app.use("/posts", postRoutes)
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
