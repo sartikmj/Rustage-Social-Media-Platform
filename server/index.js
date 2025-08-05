@@ -77,7 +77,7 @@ app.post("/auth/register", upload.single("picture") /* middleware to store*/, re
 app.post("/post", verifyToken, upload.single("picture"), createPost);
 
 /* ROUTES */
-app.use("./auth", authRoutes) //to set multiple routes from different file we use app.use() 
+app.use("/auth", authRoutes) //to set multiple routes from different file we use app.use() 
 //User Route
 app.use("/users", userRoutes)
 //Post Route

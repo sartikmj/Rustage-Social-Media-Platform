@@ -47,7 +47,7 @@ export const register = async (req, res)=>{ // Using async bcz going to make a c
 /* LOGGING IN */
 export const login = async (req,res) => {
     try{
-        const { email, password } = req.body();
+        const { email, password } = req.body //destructuring the req.body object to get email and password;
         const user = await User.findOne({ email:email }) //finding the user with this email, it will bring back all the info here
         if(!user) return res.status(400).json({ message: "User does not exist." })
 
