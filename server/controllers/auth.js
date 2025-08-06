@@ -12,7 +12,7 @@ export const register = async (req, res)=>{ // Using async bcz going to make a c
             password,
             picturePath,
             friends,
-            locations,
+            location,
             occupation
         } = req.body; // is destructuring the req.body object — a shortcut in JavaScript to extract specific fields from an object and assign them to variables.
                     //req.body is the data sent by the frontend (usually from a form or API call). you're using object destructuring to pull out all needed fields at once.
@@ -29,7 +29,7 @@ export const register = async (req, res)=>{ // Using async bcz going to make a c
             password: passwrodHash,
             picturePath,
             friends,
-            locations,
+            location,
             occupation,
             viewedProfile: Math.floor(Math.random() *  10000), //random value
             impressions: Math.floor(Math.random() *  10000)
